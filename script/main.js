@@ -307,19 +307,10 @@ resolveFetch().then(animationTimeline());
 
 
 
-const music = document.getElementById("bg-music");
-const startOverlay = document.getElementById("start-overlay");
-
-startOverlay.addEventListener("click", () => {
-  // Play music
+window.addEventListener("load", () => {
+  const music = document.getElementById("bg-music");
+  music.volume = 0.5; // optional
   music.play().catch((err) => console.log("Autoplay blocked:", err));
-  
-  // Start animation
-  animationTimeline();
-  
-  // Hide overlay
-  startOverlay.style.display = "none";
 });
-
 
 
