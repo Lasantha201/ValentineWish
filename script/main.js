@@ -305,8 +305,6 @@ const resolveFetch = () => {
 resolveFetch().then(animationTimeline());
 
 
-
-
 const music = document.getElementById("bg-music");
 const startOverlay = document.getElementById("start-overlay");
 
@@ -342,5 +340,3 @@ window.addEventListener("load", () => {
       });
   }
 });
-
-
