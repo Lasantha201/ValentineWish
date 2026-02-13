@@ -303,3 +303,27 @@ const resolveFetch = () => {
 };
 
 resolveFetch().then(animationTimeline());
+
+
+const music = document.getElementById("bg-music");
+
+// Try autoplay on page load
+window.addEventListener("load", () => {
+  const playPromise = music.play();
+
+  if (playPromise !== undefined) {
+    playPromise
+      .then(() => {
+        console.log("Music started automatically 🎵");
+      })
+      .catch(() => {
+        // If autoplay blocked (common on mobile), start after first user interaction
+        document.body.addEventListener("click", () => {
+          music.play();
+        }, { once: true });
+      });
+  }
+
+  // Optional: Set volume
+  music.volume = 0.5;
+});
