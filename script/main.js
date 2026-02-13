@@ -307,15 +307,40 @@ resolveFetch().then(animationTimeline());
 
 
 
-window.addEventListener("load", () => {
-  const music = document.getElementById("bg-music");
-  music.volume = 0.5;
+const music = document.getElementById("bg-music");
+const startOverlay = document.getElementById("start-overlay");
 
-  // Unmute after a tiny delay
-  setTimeout(() => {
-    music.muted = false;
-    music.play().catch(() => console.log("Browser blocked autoplay"));
-  }, 1000); // 1 second
+// Function to start animation + music
+const startPage = () => {
+  // Unmute music (desktop will hear it)
+  music.muted = false;
+  music.volume = 0.5;
+  music.play().catch(() => console.log("Autoplay blocked"));
+
+  // Hide overlay
+  startOverlay.style.display = "none";
+
+  // Start your Valentine animation
+  animationTimeline();
+};
+
+// Detect if user interaction is needed
+window.addEventListener("load", () => {
+  const playPromise = music.play();
+  
+  if (playPromise !== undefined) {
+    playPromise
+      .then(() => {
+        // Autoplay works
+        console.log("Music started automatically 🎵");
+        animationTimeline();
+        startOverlay.style.display = "none";
+      })
+      .catch(() => {
+        // Autoplay blocked (mobile / browser policy)
+        startOverlay.addEventListener("click", startPage, { once: true });
+      });
+  }
 });
 
 
