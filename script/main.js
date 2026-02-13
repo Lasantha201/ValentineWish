@@ -309,8 +309,13 @@ resolveFetch().then(animationTimeline());
 
 window.addEventListener("load", () => {
   const music = document.getElementById("bg-music");
-  music.volume = 0.5; // optional
-  music.play().catch((err) => console.log("Autoplay blocked:", err));
+  music.volume = 0.5;
+
+  // Unmute after a tiny delay
+  setTimeout(() => {
+    music.muted = false;
+    music.play().catch(() => console.log("Browser blocked autoplay"));
+  }, 1000); // 1 second
 });
 
 
